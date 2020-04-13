@@ -30,6 +30,6 @@ def checkCode(filePath):
                         if len(re.findall(rule[pattern]['regText'],line)) != 0:
                             log = f"{filePath} : {lineNum} : {rule[pattern]['content']}"
                             print(log)
-                    
+
 for i in s:
     checkCode(i)
