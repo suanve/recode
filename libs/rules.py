@@ -129,3 +129,8 @@ rule['unserialize'] = {
     'regText':"""(unserialize)\s{0,5}\({0,1}.{0,60}\$_(POST|GET|REQUEST|SERVER)""",
     'content':"unserialize函数中存在可控变量,可能存在反序列化漏洞"
 }
+
+rule['unserialize2'] = {
+    'regText':"""(unserialize)\s{0,10}\(.{0,60}\$\w{1,20}((\[["']|\[)\${0,1}[\w\[\]"']{0,30}){0,1}""",
+    'content':"unserialize函数中存在变量,可能存在反序列化漏洞"
+}
