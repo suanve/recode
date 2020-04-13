@@ -1,6 +1,6 @@
 ### recode代码审计工具
 
->方便在Mac/Linux下使用   
+>方便在Mac/Linux下使用
 
 > 匹配规则部分来自于seay代码审计工具
 
