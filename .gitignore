@@ -2,3 +2,4 @@
 .recode
 __pycache__
 *.pyc
+*.php
