@@ -1,35 +1,25 @@
 #!/usr/bin/env python3
-#coding=utf-8
-from config import *
-from libs.rules import rule
-import sys
+import argparse
 import os
-import re
+from core.audit import Audit
+class Run:
 
-def getFilefree(rootDir):
-    fileSet = set()
-    for dir_, _, files in os.walk(rootDir):
-        for fileName in files:
-            relDir = os.path.relpath(dir_, rootDir)
-            relFile = os.path.join(relDir, fileName)
-            fileSet.add(relFile)
-    return fileSet
+    def __init__(self):
+        self.cmdline()
 
-path = sys.argv[1]
-s = getFilefree(path)
+    # 命令行参数
+    def cmdline(self):
+        parser = argparse.ArgumentParser(description='You can perform an automatic code audit by entering the type and directory of the source code you want to audit.')
+        parser.add_argument('-t','--type',metavar="type",type=str,default='php',
+                            help='Enter the Code Type for the audit,Support php,py,go,shell')
+        parser.add_argument('path', metavar='path', type=str,
+                            help='Enter the Code Path for the audit')
+        args = parser.parse_args()
+        self.type = args.type
+        self.path = args.path
 
-def checkCode(filePath):
-    filePath = path + "/" + filePath
-    if filePath.split(".")[-1] not in checkExt:
-        return
-    lineNum = 0
-    with open(filePath, 'r', encoding="utf8", errors='ignore') as file:
-            for line in file.readlines():
-                    lineNum = lineNum + 1
-                    for pattern in rule.keys():
-                        if len(re.findall(rule[pattern]['regText'],line)) != 0:
-                            log = f"{filePath}:{lineNum} : {rule[pattern]['content']}"
-                            print(log)
-
-for i in s:
-    checkCode(i)
+if __name__ == "__main__":
+    run = Run()
+    scan = Audit(run.path,run.type)
+    scan.Scan()
+    

@@ -1,1 +1,0 @@
-checkExt = ["php","html","tpl","phtml","php3"]

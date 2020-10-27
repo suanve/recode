@@ -1,25 +1,31 @@
 ### recode代码审计工具
 
->方便在Mac/Linux下使用
+> 方便在Mac/Linux下使用的一个代码审计工具
 
 > 匹配规则部分来自于seay代码审计工具
-
-> 开发版本为python 3.8
+> 准备做支持多语言的审计
+> 开发版本为python 3.9
 > 此版本为demo
 ### 使用方法:
-`python recode.py {folder}`
+`python3 recode.py -h`
 
 ```
-$ python recode.py xssplatform
-xssplatform/libs/plugins/function.html_image.php : 64 : 双$$符号可能存在变量覆盖漏洞
-xssplatform/libs/sysplugins/smarty_internal_compile_private_modifier.php : 55 : call_user_func函数参数包含变量，可能存在代码执行漏洞
-xssplatform/./c.php:20 : 文件操作函数中存在变量，可能存在任意文件读取/删除/修改/写入等漏洞
-xssplatform/./c.php:22 : 读取文件函数中存在变量，可能存在任意文件读取漏洞
-xssplatform/libs/sysplugins/smarty_internal_resource_file.php : 72 : 读取文件函数中存在变量，可能存在任意文件读取漏洞
+$ recode.py  ./
+evil/1.php:2 : eval或者assertc函数中存在变量，可能存在代码执行漏洞
+./nu.php:5 : eval或者assertc函数中存在变量，可能存在代码执行漏洞
+./un.php:6 : eval或者assertc函数中存在变量，可能存在代码执行漏洞
+./un.php:17 : unserialize函数中存在变量,可能存在反序列化漏洞
+./2.php:79 : 命令执行函数中存在变量，可能存在任意命令执行漏洞
+./2.php:79 : 远程请求函数中存在变量,可能存在SSRF漏洞
+evil/3.php:2 : 读取文件函数中存在变量，可能存在任意文件读取漏洞
+evil/3.php:2 : 文件操作函数中存在变量，可能存在任意文件读取/删除/修改/写入等漏洞
 ```
 
-- [x] 审计规则自定义
-- [ ] 生产项目配置文件
-- [ ] 将漏洞进行分类 方便观看
-- [ ] 调用ide进行编辑
-- [ ] 生成报告
+
+```
+$ recode.py -t python ./
+./1.py:3 : 存在pickle反序列化操作,可能存在反序列化漏洞
+./1.py:4 : 存在popen命令执行函数,可能存在命令执行漏洞
+apps/deploy/views.py:246 : 存在subprocess命令执行函数,可能存在命令执行漏洞
+apps/monitor/executors.py:40 : 存在subprocess命令执行函数,可能存在命令执行漏洞
+```
