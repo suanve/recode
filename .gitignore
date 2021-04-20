@@ -3,4 +3,5 @@
 __pycache__
 *.pyc
 *.php
+*.go
 rules/*.py
