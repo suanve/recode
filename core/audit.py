@@ -46,4 +46,5 @@ class Audit(object):
                                 print(log)
     def Scan(self):
         for filepath in self.fileSet:
+            filepath = self.rootDir+ "/" + filepath 
             self.checkCode(filepath)
